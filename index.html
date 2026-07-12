@@ -8,12 +8,16 @@
 <title>FGE Nettoyage — Nettoyage de vitres et panneaux solaires à Valence</title>
 <meta name="description" content="FGE Nettoyage intervient dans un rayon de 30 km autour de Valence pour le nettoyage de vitres, vitrines, façades et l'entretien de panneaux solaires.">
 <link rel="preload" as="image" href="acceuil.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
+/* Police Inter auto-hébergée — fichiers dans /fonts, aucune dépendance externe */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/inter-400.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/inter-500.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/inter-600.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/inter-700.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url('fonts/inter-800.woff2') format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:900;font-display:swap;src:url('fonts/inter-900.woff2') format('woff2')}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --blue:#1C1C1E;
@@ -810,6 +814,10 @@ footer{
 }
 .footer-brand-logo{display:flex;align-items:center;height:44px;margin-bottom:1.1rem}
 .footer-brand-logo img{height:150px;width:auto;margin-left:-30px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4))}
+.footer-brand-tagline{
+  font-size:12.5px;font-weight:600;color:#14bbe2;letter-spacing:0.3px;
+  margin:-0.6rem 0 1rem;
+}
 .footer-brand-desc{
   font-size:13.5px;color:#8B95A6;line-height:1.75;
   max-width:300px;margin-bottom:1.5rem;
@@ -1664,6 +1672,7 @@ footer{
     <div class="footer-grid">
       <div>
         <div class="footer-brand-logo"><img src="logo.png" alt="FGE Nettoyage"></div>
+        <div class="footer-brand-tagline">Pour Valence et ses alentours</div>
         <p class="footer-brand-desc">Nettoyage de vitres, vitrines, façades et entretien de panneaux solaires pour les professionnels et les particuliers, à Valence et dans un rayon de 30 km.</p>
         <div class="footer-badge">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
