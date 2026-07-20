@@ -154,6 +154,18 @@ html,body{max-width:100%;overflow-x:hidden}
   transition:color 0.2s;letter-spacing:0.2px;font-weight:600;
 }
 .nav-links a:hover{color:#fff}
+.nav-phone-mobile{
+  display:none;
+  align-items:center;justify-content:center;
+  width:38px;height:38px;
+  border-radius:50%;
+  background:var(--blue);
+  color:#fff;
+  margin-left:auto;
+  margin-right:0.5rem;
+  flex-shrink:0;
+}
+.nav-phone-mobile svg{width:17px;height:17px}
 .nav-cta{
   background:#fff;color:var(--blue);border:none;
   padding:11px 24px;border-radius:var(--radius-sm);
@@ -286,7 +298,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .section-inner{max-width:1100px;margin:0 auto}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
 .section-title{font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--dark);letter-spacing:-1px;margin-bottom:10px;line-height:1.15}
-.section-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:560px;margin-bottom:3rem}
+.section-sub{font-size:16px;color:#14bbe2;line-height:1.7;max-width:560px;margin-bottom:3rem}
 
 /* REVEAL ANIMATION */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
@@ -383,24 +395,210 @@ html,body{max-width:100%;overflow-x:hidden}
   position:relative;z-index:1;
 }
 
-/* PHOTO STRIP */
-.photo-strip{
-  position:relative;height:420px;overflow:hidden;
-  display:grid;grid-template-columns:1.2fr 1fr 0.9fr;gap:4px;
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.blog-card{
+  background:#fff;border:0.5px solid #E5E7EB;border-radius:16px;
+  overflow:hidden;text-decoration:none;color:inherit;display:block;cursor:pointer;
+  transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;
 }
-.photo-strip-item{overflow:hidden;position:relative}
-.photo-strip-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
-.photo-strip-item:hover img{transform:scale(1.06)}
-.photo-strip-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(13,13,15,0.7) 0%,transparent 50%);
+.blog-card:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.blog-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.12);border-color:var(--blue)}
+.blog-card-img-wrap{position:relative;height:190px;overflow:hidden;background:var(--blue-pale)}
+.blog-card-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
+.blog-card:hover .blog-card-img-wrap img{transform:scale(1.06)}
+.blog-card-badge{
+  position:absolute;top:12px;left:12px;
+  background:rgba(13,13,15,0.75);backdrop-filter:blur(6px);color:#fff;
+  font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
+  padding:5px 10px;border-radius:100px;
 }
-.photo-strip-label{
-  position:absolute;bottom:1.25rem;left:1.25rem;
-  font-size:13px;font-weight:600;color:#fff;
-  letter-spacing:0.3px;
+.blog-card-date{
+  position:absolute;top:12px;right:12px;
+  background:rgba(255,255,255,0.92);color:var(--dark);
+  font-size:11px;font-weight:600;padding:5px 10px;border-radius:100px;
 }
-.photo-strip-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
+.blog-card-body{padding:1.5rem}
+.blog-card-title{font-size:16px;font-weight:700;color:var(--dark);line-height:1.35;margin-bottom:0.6rem}
+.blog-card-excerpt{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:1.1rem}
+.blog-card-readmore{font-size:12.5px;font-weight:700;color:var(--blue);display:inline-flex;align-items:center;gap:6px}
+.blog-card-readmore svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;transition:transform 0.25s ease}
+.blog-card:hover .blog-card-readmore svg{transform:translateX(3px)}
+
+/* ARTICLE MODAL — petit aperçu qui s'ouvre au clic sur une carte du blog */
+body.modal-open{overflow:hidden}
+.article-modal-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(13,13,15,0.75);backdrop-filter:blur(4px);
+  display:none;align-items:flex-start;justify-content:center;
+  padding:6vh 1.25rem;overflow-y:auto;
+}
+.article-modal-overlay.open{display:flex}
+.article-modal{
+  background:#fff;border-radius:20px;max-width:560px;width:100%;
+  overflow:hidden;position:relative;margin-bottom:6vh;
+  animation:modalIn 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(0.98)}to{opacity:1;transform:none}}
+.article-modal-close{
+  position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
+  background:rgba(13,13,15,0.55);backdrop-filter:blur(6px);border:none;color:#fff;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;
+  transition:background 0.2s;
+}
+.article-modal-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.4}
+.article-modal-close:hover{background:rgba(13,13,15,0.85)}
+.article-modal-img{width:100%;height:200px;object-fit:cover;display:block}
+.article-modal-body{padding:2rem}
+.article-modal-meta{display:flex;gap:10px;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.article-modal-badge{background:var(--blue-pale);color:var(--blue);font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+.article-modal-date{color:var(--muted);font-size:12.5px}
+.article-modal-title{font-size:22px;font-weight:800;color:var(--dark);line-height:1.3;margin-bottom:1rem;letter-spacing:-0.5px}
+.article-modal-summary{font-size:15px;color:var(--mid);line-height:1.75;margin-bottom:1.5rem}
+.article-modal-readmore-btn{
+  background:var(--blue);color:#fff;border:none;
+  padding:12px 22px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:700;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Inter',sans-serif;text-decoration:none;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.article-modal-readmore-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,0.18)}
+.article-modal-readmore-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;transition:transform 0.25s ease}
+.article-modal-readmore-btn:hover svg{transform:translateX(3px)}
+@media(max-width:600px){
+  .article-modal-overlay{padding:0;align-items:flex-end}
+  .article-modal{border-radius:20px 20px 0 0;max-height:92vh;overflow-y:auto;margin-bottom:0}
+  .article-modal-img{height:160px}
+  .article-modal-body{padding:1.5rem}
+}
+
+/* ARTICLE PAGE */
+.article-hero{background:var(--dark);padding:9rem 2.5rem 3.5rem;position:relative}
+.article-hero .section-inner{max-width:760px}
+.article-breadcrumb{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:1.25rem;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.article-breadcrumb a{color:rgba(255,255,255,0.5);text-decoration:none}
+.article-breadcrumb a:hover{color:#fff}
+.article-meta{display:flex;gap:10px;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap}
+.article-badge{background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.2);color:#fff;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:5px 12px;border-radius:100px}
+.article-date{color:rgba(255,255,255,0.5);font-size:12.5px}
+.article-title{font-size:clamp(28px,4vw,42px);font-weight:800;color:#fff;line-height:1.2;letter-spacing:-1px}
+
+.article-body-section{padding:4rem 2.5rem}
+.article-body{max-width:720px;margin:0 auto}
+.article-body p{font-size:16px;line-height:1.8;color:var(--mid);margin-bottom:1.4rem}
+.article-body h2{font-size:22px;font-weight:800;color:var(--dark);margin:2.5rem 0 1rem;letter-spacing:-0.5px}
+.article-body h3{font-size:16px;font-weight:800;color:var(--dark);margin:1.5rem 0 0.6rem}
+.article-body .article-note{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:2rem}
+.article-body ul{margin:0 0 1.4rem 0;padding-left:1.2rem}
+.article-body li{font-size:15.5px;line-height:1.75;color:var(--mid);margin-bottom:0.5rem}
+.article-body strong{color:var(--dark)}
+.article-cta{margin-top:2.5rem;padding:2rem;background:var(--blue-pale);border-radius:16px;text-align:center}
+.article-cta-title{font-size:18px;font-weight:800;color:var(--dark);margin-bottom:0.5rem}
+.article-cta-text{font-size:14px;color:var(--mid);margin-bottom:1.25rem}
+.article-back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--blue);text-decoration:none;margin-bottom:2rem}
+.article-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.4}
+.article-example{background:var(--light);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;font-size:14.5px;color:var(--mid)}
+.article-example strong{display:block;color:var(--dark);margin-bottom:0.4rem;font-size:13px;text-transform:uppercase;letter-spacing:0.5px}
+.article-related{padding:1rem 2.5rem 5rem}
+.article-related .section-inner{max-width:1100px;margin:0 auto}
+@media(max-width:768px){
+  .article-hero{padding:7.5rem 1.25rem 2.5rem}
+  .article-body-section{padding:2.5rem 1.25rem}
+  .article-related{padding:0.5rem 1.25rem 3.5rem}
+}
+
+/* PHOTO CAROUSEL — même look que les cartes "réalisations", défilement horizontal infini */
+.solar-carousel{
+  position:relative;
+  margin-top:2.5rem;
+  padding:0 2.5rem;
+}
+.solar-carousel-window{
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-behavior:auto;
+  -webkit-overflow-scrolling:touch;
+  width:100%;
+  scrollbar-width:none;
+  cursor:grab;
+}
+.solar-carousel-window:active{cursor:grabbing}
+.solar-carousel-window::-webkit-scrollbar{display:none}
+.solar-carousel-track{display:flex;gap:20px;padding:4px 4px 8px}
+.solar-carousel-item{
+  flex:0 0 320px;
+  width:320px;
+  background:#fff;
+  border:1px solid #E5E7EB;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,0.04);
+}
+.solar-carousel-item img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  display:block;
+}
+.solar-carousel-body{padding:1.5rem}
+.solar-carousel-name{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.solar-carousel-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.solar-carousel-btn{
+  position:absolute;
+  top:calc(50% - 10px);
+  transform:translateY(-50%);
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:0.5px solid #E5E7EB;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,0.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+  z-index:2;
+}
+.solar-carousel-btn:hover{transform:translateY(-50%) scale(1.06);box-shadow:0 12px 30px rgba(0,0,0,0.16)}
+.solar-carousel-prev{left:2px}
+.solar-carousel-next{right:2px}
+.solar-carousel-btn svg{width:18px;height:18px;stroke:var(--dark);stroke-width:2.2}
+@media(max-width:900px){
+  .solar-carousel-btn{display:none}
+}
+@media(max-width:768px){
+  .solar-carousel{padding:0 1.25rem}
+  .solar-carousel-item{flex-basis:260px;width:260px}
+  .solar-carousel-item img{height:140px}
+}
+
+/* RÉALISATIONS CAROUSEL — même look que les anciennes cartes, défilement infini */
+.real-carousel{position:relative;margin-top:2rem;padding:0 2.5rem}
+.real-carousel-window{
+  overflow-x:auto;overflow-y:hidden;scroll-behavior:auto;
+  -webkit-overflow-scrolling:touch;width:100%;scrollbar-width:none;cursor:grab;
+}
+.real-carousel-window:active{cursor:grabbing}
+.real-carousel-window::-webkit-scrollbar{display:none}
+.real-carousel-track{display:flex;gap:20px;padding:4px 4px 8px}
+.real-carousel-card{
+  flex:0 0 320px;width:320px;
+  background:#fff;border:1px solid #E5E7EB;border-radius:var(--radius);
+  overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.04);
+}
+.real-carousel-card img{width:100%;height:180px;object-fit:cover;display:block}
+.real-carousel-body{padding:1.5rem}
+.real-carousel-name{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.real-carousel-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.real-carousel-prev{left:2px}
+.real-carousel-next{right:2px}
+@media(max-width:768px){
+  .real-carousel{padding:0 1.25rem}
+  .real-carousel-card{flex-basis:260px;width:260px}
+  .real-carousel-card img{height:140px}
+}
 
 /* PROCESS */
 .process-section{
@@ -413,9 +611,9 @@ html,body{max-width:100%;overflow-x:hidden}
   background-size:cover;background-position:center;opacity:0.08;
 }
 .process-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto}
-.process-section .eyebrow{color:#6B7280}
+.process-section .eyebrow{color:#A5F3FC}
 .process-section .section-title{color:#fff}
-.process-section .section-sub{color:#64748B}
+.process-section .section-sub{color:#A5F3FC}
 .steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:3rem}
 .steps-line{
   position:absolute;top:28px;left:10%;right:10%;
@@ -643,7 +841,7 @@ html,body{max-width:100%;overflow-x:hidden}
   background:rgba(0,0,0,0.08);
   pointer-events:none;
 }
-.zone-note{font-size:12px;color:var(--muted);margin-top:1rem;text-align:center}
+.zone-note{font-size:12px;color:#14bbe2;margin-top:1rem;text-align:center}
 
 /* FAQ */
 .faq-section{background:var(--light)}
@@ -954,6 +1152,7 @@ footer{
 .nav-mobile-overlay a:last-child{border-bottom:none}
 .nav-mobile-overlay a:active{background:rgba(255,255,255,0.06);color:#fff}
 .nav-mobile-overlay .nav-cta{
+  display:flex;
   margin:1rem 1.5rem 1.25rem;
   border-radius:var(--radius-sm);
   justify-content:center;
@@ -975,6 +1174,7 @@ footer{
   .nav-logo-img{height:90px}
   .nav-links{display:none}
   .nav-cta{display:none}
+  .nav-phone-mobile{display:flex}
   .nav-hamburger{display:flex}
   .nav-mobile-overlay{top:64px}
   .nav:not(.scrolled){background:linear-gradient(rgba(13,13,15,0.45),rgba(13,13,15,0))}
@@ -1024,6 +1224,7 @@ footer{
 
   /* SERVICES */
   .services-grid{grid-template-columns:1fr;gap:12px}
+  .blog-grid{grid-template-columns:1fr;gap:14px}
   .service-card{padding:1.5rem}
 
   /* PROCESS */
@@ -1166,6 +1367,9 @@ footer{
   <a href="tel:0617512963" class="nav-cta">
     06 17 51 29 63
   </a>
+  <a href="tel:0617512963" class="nav-phone-mobile" aria-label="Appeler le 06 17 51 29 63">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  </a>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -1237,7 +1441,7 @@ footer{
       <div class="service-card reveal delay-1">
         <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 2v20M2 12h20"/></svg></div>
         <div class="service-name">Vitrine extérieur de bâtiment</div>
-        <p class="service-desc">La garantie d'une transparence absolue pour vos fenêtres d'accès. [Contenu à confirmer]</p>
+        <p class="service-desc">Entretien des vitrages, même pour une fenêtre difficile d’accès, pour une visibilité parfaite.</p>
         <div class="service-tag">Vitrines</div>
       </div>
       <div class="service-card reveal delay-2">
@@ -1260,9 +1464,9 @@ footer{
       </div>
       <div class="service-card reveal delay-2">
         <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
-        <div class="service-name">Contrat de passage</div>
-        <p class="service-desc">Planifiez vos entretiens pour garder une visibilité nette au quotidien. [Contenu à confirmer]</p>
-        <div class="service-tag">Abonnement</div>
+        <div class="service-name">Velux</div>
+        <p class="service-desc">Nettoyage soigné de vos fenêtres de toit Velux pour laisser entrer la lumière sans traces.</p>
+        <div class="service-tag">Velux</div>
       </div>
       <div class="service-card reveal delay-3">
         <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v18M16 3v18"/></svg></div>
@@ -1289,32 +1493,73 @@ footer{
           <li>Profitez d'un entretien sécurisé augmentant la production de vos panneaux photovoltaïques</li>
           <li>Maintenance durable et pro</li>
         </ul>
-        <a href="#contact" class="btn-hero-primary">
+        <div class="solar-actions">
+          <a href="#contact" class="btn-hero-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           Prendre rendez-vous
         </a>
-      </div>
+          <a href="#faq" class="btn-hero-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            Voir le blog panneaux solaires
+          </a>
+        </div>
     </div>
   </div>
 </section>
 
-<!-- PHOTO STRIP -->
-<div class="photo-strip reveal">
-  <div class="photo-strip-item">
-    <img src="https://placehold.co/800x1000/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
-    <div class="photo-strip-overlay"></div>
-    <div class="photo-strip-label">Façades de bâtiments<div class="photo-strip-sub">[Contenu à confirmer]</div></div>
+<div class="solar-carousel reveal" id="solarCarousel">
+  <button type="button" class="solar-carousel-btn solar-carousel-prev" aria-label="Photos précédentes">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <div class="solar-carousel-window" id="solarWindow">
+    <div class="solar-carousel-track" id="solarTrack">
+      <div class="solar-carousel-item">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Panneaux solaires nettoyés" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Nettoyage en douceur</div>
+          <p class="solar-carousel-desc">Entretien photovoltaïque pro</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Performance optimale" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Rendement maximal</div>
+          <p class="solar-carousel-desc">Remise à neuf certifiée</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Installation soignée" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Interventions propres</div>
+          <p class="solar-carousel-desc">Service pro et sécurisé</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Nettoyage de vitres" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Vitres impeccables</div>
+          <p class="solar-carousel-desc">[Contenu à confirmer]</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Intervention en hauteur" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Équipe qualifiée</div>
+          <p class="solar-carousel-desc">[Contenu à confirmer]</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Résultat final" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Résultat garanti</div>
+          <p class="solar-carousel-desc">[Contenu à confirmer]</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="photo-strip-item">
-    <img src="https://placehold.co/800x1000/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
-    <div class="photo-strip-overlay"></div>
-    <div class="photo-strip-label">Vitrines commerciales<div class="photo-strip-sub">[Contenu à confirmer]</div></div>
-  </div>
-  <div class="photo-strip-item">
-    <img src="https://placehold.co/800x1000/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
-    <div class="photo-strip-overlay"></div>
-    <div class="photo-strip-label">Résidences privées<div class="photo-strip-sub">[Contenu à confirmer]</div></div>
-  </div>
+  <button type="button" class="solar-carousel-btn solar-carousel-next" aria-label="Photos suivantes">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
 </div>
 
 <!-- ABOUT -->
@@ -1360,28 +1605,38 @@ footer{
     <div class="eyebrow reveal">Portfolio</div>
     <h2 class="section-title reveal">Nos réalisations</h2>
     <p class="section-sub reveal">Quelques exemples d'interventions récentes chez nos clients professionnels et particuliers. [Contenu à confirmer]</p>
-    <div class="services-grid">
-      <div class="service-card reveal delay-1" style="padding:0;overflow:hidden">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Façade de bâtiment nettoyée" loading="lazy" decoding="async" style="width:100%;height:180px;object-fit:cover;display:block">
-        <div style="padding:1.5rem">
-          <div class="service-name">Façade de bureaux [Contenu à confirmer]</div>
-          <p class="service-desc">Nettoyage complet des vitrages d'un immeuble de bureaux sur plusieurs niveaux. [Contenu à confirmer]</p>
+    <div class="real-carousel reveal" id="realCarousel">
+      <button type="button" class="solar-carousel-btn real-carousel-prev" aria-label="Réalisations précédentes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="real-carousel-window" id="realWindow">
+        <div class="real-carousel-track" id="realTrack">
+          <div class="real-carousel-card">
+            <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Façade de bâtiment nettoyée" loading="lazy" decoding="async">
+            <div class="real-carousel-body">
+              <div class="real-carousel-name">Façade de bureaux [Contenu à confirmer]</div>
+              <p class="real-carousel-desc">Nettoyage complet des vitrages d'un immeuble de bureaux sur plusieurs niveaux. [Contenu à confirmer]</p>
+            </div>
+          </div>
+          <div class="real-carousel-card">
+            <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Vitrine de commerce nettoyée" loading="lazy" decoding="async">
+            <div class="real-carousel-body">
+              <div class="real-carousel-name">Vitrine de boutique [Contenu à confirmer]</div>
+              <p class="real-carousel-desc">Remise à neuf d'une devanture commerciale pour une ouverture impeccable. [Contenu à confirmer]</p>
+            </div>
+          </div>
+          <div class="real-carousel-card">
+            <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Panneaux solaires nettoyés" loading="lazy" decoding="async">
+            <div class="real-carousel-body">
+              <div class="real-carousel-name">Installation solaire [Contenu à confirmer]</div>
+              <p class="real-carousel-desc">Entretien d'une installation photovoltaïque pour restaurer son rendement optimal. [Contenu à confirmer]</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="service-card reveal delay-2" style="padding:0;overflow:hidden">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Vitrine de commerce nettoyée" loading="lazy" decoding="async" style="width:100%;height:180px;object-fit:cover;display:block">
-        <div style="padding:1.5rem">
-          <div class="service-name">Vitrine de boutique [Contenu à confirmer]</div>
-          <p class="service-desc">Remise à neuf d'une devanture commerciale pour une ouverture impeccable. [Contenu à confirmer]</p>
-        </div>
-      </div>
-      <div class="service-card reveal delay-3" style="padding:0;overflow:hidden">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Panneaux solaires nettoyés" loading="lazy" decoding="async" style="width:100%;height:180px;object-fit:cover;display:block">
-        <div style="padding:1.5rem">
-          <div class="service-name">Installation solaire [Contenu à confirmer]</div>
-          <p class="service-desc">Entretien d'une installation photovoltaïque pour restaurer son rendement optimal. [Contenu à confirmer]</p>
-        </div>
-      </div>
+      <button type="button" class="solar-carousel-btn real-carousel-next" aria-label="Réalisations suivantes">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -1548,6 +1803,66 @@ footer{
   </div>
 </section>
 
+<!-- BLOG -->
+<section class="section faq-section" id="faq">
+  <div class="section-inner">
+    <div class="eyebrow reveal">Blog</div>
+    <h2 class="section-title reveal">Le blog FGE Nettoyage</h2>
+    <p class="section-sub reveal">Conseils, actualités et bonnes pratiques pour l'entretien de vos vitres et de vos panneaux solaires à Valence, dans la Drôme et en Ardèche.</p>
+    <div class="blog-grid reveal">
+      <div class="blog-card" data-article="1" role="button" tabindex="0">
+        <div class="blog-card-img-wrap">
+          <img src="https://placehold.co/600x400/1C1C1E/ffffff?text=FGE+Nettoyage&font=montserrat" alt="Nettoyage de panneaux solaires" loading="lazy" decoding="async">
+          <div class="blog-card-badge">Actualités</div>
+          <div class="blog-card-date">2 janv. 2024</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-title">Pourquoi le nettoyage de vitres et panneaux solaires devient incontournable</div>
+          <p class="blog-card-excerpt">Poussières, pollen, pollution : pourquoi un entretien régulier préserve vos surfaces vitrées et le rendement de vos panneaux.</p>
+          <span class="blog-card-readmore">Lire l'article
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+      <div class="blog-card" data-article="2" role="button" tabindex="0">
+        <div class="blog-card-img-wrap">
+          <img src="https://placehold.co/600x400/374151/ffffff?text=FGE+Nettoyage&font=montserrat" alt="Fréquence de nettoyage des vitres" loading="lazy" decoding="async">
+          <div class="blog-card-badge">Conseil</div>
+          <div class="blog-card-date">2 janv. 2024</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-title">À quelle fréquence faut-il nettoyer ses vitres et ses panneaux solaires ?</div>
+          <p class="blog-card-excerpt">Le bon rythme d'entretien selon votre environnement, pour particuliers comme pour professionnels.</p>
+          <span class="blog-card-readmore">Lire l'article
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+      <div class="blog-card" data-article="3" role="button" tabindex="0">
+        <div class="blog-card-img-wrap">
+          <img src="https://placehold.co/600x400/14bbe2/ffffff?text=FGE+Nettoyage&font=montserrat" alt="Crédit d'impôt services à la personne" loading="lazy" decoding="async">
+          <div class="blog-card-badge">Conseil</div>
+          <div class="blog-card-date">2 janv. 2024</div>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-title">Nos factures sont-elles déductibles des impôts ?</div>
+          <p class="blog-card-excerpt">Le dispositif Services à la Personne permet un crédit d'impôt de 50 % sur vos prestations à domicile.</p>
+          <span class="blog-card-readmore">Lire l'article
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="faq-cta-row reveal">
+      <div class="faq-cta-text">Une question sur une prestation ? Contactez-nous directement.</div>
+      <a href="#contact" class="faq-cta-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Nous contacter
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ZONES -->
 <section class="section" id="zones">
   <div class="section-inner">
@@ -1573,7 +1888,7 @@ footer{
           <div class="zone-tag" data-lat="44.7833" data-lng="4.8333"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Livron-sur-Drôme</div>
           <div class="zone-tag" data-lat="44.7281" data-lng="5.0225"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Crest</div>
         </div>
-        <p style="font-size:12px;color:var(--muted);margin-top:1rem">Pour le nettoyage de panneaux solaires, FGE Nettoyage peut se déplacer au-delà de ce rayon sur simple demande. N'hésitez pas à nous solliciter.</p>
+        <p style="font-size:12px;color:#14bbe2;margin-top:1rem">Pour le nettoyage de panneaux solaires, FGE Nettoyage peut se déplacer au-delà de ce rayon sur simple demande. N'hésitez pas à nous solliciter.</p>
       </div>
       <div class="reveal-right">
         <div class="zone-map-wrap">
@@ -1589,22 +1904,6 @@ footer{
   </div>
 </section>
 
-<!-- BLOG -->
-<section class="section faq-section" id="faq">
-  <div class="section-inner">
-    <div class="eyebrow reveal">Blog</div>
-    <h2 class="section-title reveal">Le blog FGE Nettoyage</h2>
-    <p class="section-sub reveal">[Contenu à confirmer]</p>
-    <div class="faq-cta-row reveal">
-      <div class="faq-cta-text">Une question sur une prestation ? [Contenu à confirmer]</div>
-      <a href="#contact" class="faq-cta-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        Nous contacter
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <div class="contact-inner">
@@ -1612,7 +1911,7 @@ footer{
       <div class="reveal-left">
         <h2 class="section-title">Devenez client dès aujourd'hui</h2>
         <div class="contact-underline"></div>
-        <p class="contact-lead">Besoin d'un professionnel pour des vitres sans traces et des panneaux solaires performants ?<br>Laissez-moi un message pour obtenir votre devis personnalisé. [Contenu à confirmer]</p>
+        <p class="contact-lead">Besoin d'un professionnel pour des vitres sans traces et des panneaux solaires performants ?<br>Laissez-moi un message pour obtenir votre devis gratuit personnalisé. [Contenu à confirmer]</p>
       </div>
       <div class="reveal-right">
         <form class="contact-form" id="contactForm">
@@ -1647,7 +1946,7 @@ footer{
             </select>
           </div>
           <div class="field"><label>Message</label><textarea name="message" placeholder="Décrivez vos besoins ici..."></textarea></div>
-          <button type="submit" class="form-submit" id="formSubmitBtn">Envoyer le devis</button>
+          <button type="submit" class="form-submit" id="formSubmitBtn">Envoyer</button>
           <div class="form-note" id="formNote">[Contenu à confirmer]</div>
         </form>
       </div>
@@ -1697,7 +1996,7 @@ footer{
           <li><span>Vitres résidentiel</span></li>
           <li><span>Véranda</span></li>
           <li><span>Garde-corps en verre</span></li>
-          <li><span>Contrat de passage régulier</span></li>
+          <li><span>Velux et fenêtres de toit</span></li>
           <li><span>Entretien panneaux solaires</span></li>
         </ul>
       </div>
@@ -1718,7 +2017,7 @@ footer{
           </li>
         </ul>
         <a href="#contact" class="footer-cta-btn">
-          Demander un devis
+          Envoyer
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
@@ -1732,6 +2031,28 @@ footer{
     </div>
   </div>
 </footer>
+
+<!-- MODALE APERÇU ARTICLE BLOG -->
+<div class="article-modal-overlay" id="articleModalOverlay">
+  <div class="article-modal">
+    <button type="button" class="article-modal-close" id="articleModalClose" aria-label="Fermer">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <img class="article-modal-img" id="articleModalImg" src="" alt="">
+    <div class="article-modal-body">
+      <div class="article-modal-meta">
+        <span class="article-modal-badge" id="articleModalBadge"></span>
+        <span class="article-modal-date" id="articleModalDate"></span>
+      </div>
+      <h3 class="article-modal-title" id="articleModalTitle"></h3>
+      <p class="article-modal-summary" id="articleModalSummary"></p>
+      <a href="#" class="article-modal-readmore-btn" id="articleModalReadmore">
+        Lire l'article
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
 
 <script>
 // Effet vitre nettoyée
@@ -1949,6 +2270,161 @@ sections.forEach(s => navSpyObserver.observe(s));
   });
 })();
 
+// Réalisations carousel — même logique de défilement infini
+(function(){
+  const track = document.getElementById('realTrack');
+  const scrollWindow = document.getElementById('realWindow');
+  const prevBtn = document.querySelector('.real-carousel-prev');
+  const nextBtn = document.querySelector('.real-carousel-next');
+  if (!track || !scrollWindow || !prevBtn || !nextBtn) return;
+
+  const originalItems = Array.from(track.children);
+  originalItems.forEach(item => track.appendChild(item.cloneNode(true)));
+
+  const getStep = () => {
+    const item = track.querySelector('.real-carousel-card');
+    if (!item) return 340;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || '20');
+    return item.getBoundingClientRect().width + gap;
+  };
+
+  const SPEED = 0.5;
+  let autoScroll = true;
+  let resumeTimeout = null;
+
+  const normalizeScroll = () => {
+    const half = scrollWindow.scrollWidth / 2;
+    if (scrollWindow.scrollLeft >= half) scrollWindow.scrollLeft -= half;
+    else if (scrollWindow.scrollLeft < 0) scrollWindow.scrollLeft += half;
+  };
+
+  const pauseAuto = () => {
+    autoScroll = false;
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+  };
+  const resumeAutoDelayed = (delay = 1600) => {
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+    resumeTimeout = setTimeout(() => { autoScroll = true; }, delay);
+  };
+
+  const loop = () => {
+    if (autoScroll) scrollWindow.scrollLeft += SPEED;
+    normalizeScroll();
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+
+  scrollWindow.addEventListener('mouseenter', pauseAuto);
+  scrollWindow.addEventListener('mouseleave', () => resumeAutoDelayed(400));
+  scrollWindow.addEventListener('touchstart', pauseAuto, { passive: true });
+  scrollWindow.addEventListener('touchend', () => resumeAutoDelayed(1800), { passive: true });
+
+  const goTo = (direction) => {
+    pauseAuto();
+    scrollWindow.scrollBy({ left: direction * getStep() * 1, behavior: 'smooth' });
+    resumeAutoDelayed(2200);
+  };
+  prevBtn.addEventListener('click', () => goTo(-1));
+  nextBtn.addEventListener('click', () => goTo(1));
+
+  let isDown = false, startX = 0, startScroll = 0;
+  scrollWindow.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX; startScroll = scrollWindow.scrollLeft;
+    pauseAuto();
+  });
+  window.addEventListener('mouseup', () => {
+    if (isDown) resumeAutoDelayed(1600);
+    isDown = false;
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    scrollWindow.scrollLeft = startScroll - (e.pageX - startX);
+  });
+})();
+
+// Solar carousel — défilement horizontal infini, comme les avis
+(function(){
+  const track = document.getElementById('solarTrack');
+  const scrollWindow = document.getElementById('solarWindow');
+  const prevBtn = document.querySelector('.solar-carousel-prev');
+  const nextBtn = document.querySelector('.solar-carousel-next');
+  if (!track || !scrollWindow || !prevBtn || !nextBtn) return;
+
+  // On duplique une fois toutes les photos pour créer une boucle sans coupure visible
+  const originalItems = Array.from(track.children);
+  originalItems.forEach(item => track.appendChild(item.cloneNode(true)));
+
+  const getStep = () => {
+    const item = track.querySelector('.solar-carousel-item');
+    if (!item) return 220;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.columnGap || style.gap || '14');
+    return item.getBoundingClientRect().width + gap;
+  };
+
+  const SPEED = 0.5; // vitesse du défilement automatique, en px par frame
+  let autoScroll = true;
+  let resumeTimeout = null;
+
+  const normalizeScroll = () => {
+    const half = scrollWindow.scrollWidth / 2;
+    if (scrollWindow.scrollLeft >= half) scrollWindow.scrollLeft -= half;
+    else if (scrollWindow.scrollLeft < 0) scrollWindow.scrollLeft += half;
+  };
+
+  const pauseAuto = () => {
+    autoScroll = false;
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+  };
+  const resumeAutoDelayed = (delay = 1600) => {
+    if (resumeTimeout) clearTimeout(resumeTimeout);
+    resumeTimeout = setTimeout(() => { autoScroll = true; }, delay);
+  };
+
+  const loop = () => {
+    if (autoScroll) scrollWindow.scrollLeft += SPEED;
+    normalizeScroll();
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+
+  // Pause au survol / au toucher, reprise après un court délai
+  scrollWindow.addEventListener('mouseenter', pauseAuto);
+  scrollWindow.addEventListener('mouseleave', () => resumeAutoDelayed(400));
+  scrollWindow.addEventListener('touchstart', pauseAuto, { passive: true });
+  scrollWindow.addEventListener('touchend', () => resumeAutoDelayed(1800), { passive: true });
+
+  // Flèches : avancent/reculent d'environ 2 photos puis reprennent le défilement auto
+  const goTo = (direction) => {
+    pauseAuto();
+    scrollWindow.scrollBy({ left: direction * getStep() * 2, behavior: 'smooth' });
+    resumeAutoDelayed(2200);
+  };
+  prevBtn.addEventListener('click', () => goTo(-1));
+  nextBtn.addEventListener('click', () => goTo(1));
+
+  // Glisser à la souris (desktop)
+  let isDown = false, startX = 0, startScroll = 0;
+  scrollWindow.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX; startScroll = scrollWindow.scrollLeft;
+    pauseAuto();
+  });
+  window.addEventListener('mouseup', () => {
+    if (isDown) resumeAutoDelayed(1600);
+    isDown = false;
+  });
+  window.addEventListener('mouseleave', () => { isDown = false; });
+  scrollWindow.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    scrollWindow.scrollLeft = startScroll - (e.pageX - startX);
+  });
+})();
+
 // Back to top button
 const backToTop = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {
@@ -1958,6 +2434,81 @@ backToTop.addEventListener('click', (e) => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+// Modale d'aperçu des articles de blog
+(function(){
+  const articles = {
+    1: {
+      badge: 'Actualités',
+      date: '2 janvier 2024',
+      title: "Pourquoi le nettoyage de vitres et panneaux solaires devient incontournable",
+      img: 'https://placehold.co/700x400/1C1C1E/ffffff?text=FGE+Nettoyage&font=montserrat',
+      summary: "Entre les poussières, le pollen, les traces de pluie, les dépôts liés à la pollution et les salissures présentes dans l'environnement, les vitres et les panneaux photovoltaïques sont régulièrement exposés à des éléments qui réduisent leur propreté et leur efficacité.",
+      link: 'article-1.html'
+    },
+    2: {
+      badge: 'Conseil',
+      date: '2 janvier 2024',
+      title: "À quelle fréquence faut-il nettoyer ses vitres et ses panneaux solaires ?",
+      img: 'https://placehold.co/700x400/374151/ffffff?text=FGE+Nettoyage&font=montserrat',
+      summary: "Garder ses vitres et ses panneaux solaires propres permet de conserver une maison lumineuse, des locaux accueillants et une installation solaire dans de bonnes conditions. La réponse dépend de votre situation, de votre environnement et du niveau de salissure.",
+      link: 'article-2.html'
+    },
+    3: {
+      badge: 'Conseil',
+      date: '2 janvier 2024',
+      title: "Nos factures sont-elles déductibles des impôts ?",
+      img: 'https://placehold.co/700x400/14bbe2/ffffff?text=FGE+Nettoyage&font=montserrat',
+      summary: "Vous faites appel à un professionnel pour le nettoyage de vos vitres, baies vitrées ou vérandas et vous vous demandez si vous pouvez bénéficier d'un avantage fiscal ?",
+      link: 'article-3.html'
+    }
+  };
+
+  const overlay = document.getElementById('articleModalOverlay');
+  const closeBtn = document.getElementById('articleModalClose');
+  const imgEl = document.getElementById('articleModalImg');
+  const badgeEl = document.getElementById('articleModalBadge');
+  const dateEl = document.getElementById('articleModalDate');
+  const titleEl = document.getElementById('articleModalTitle');
+  const summaryEl = document.getElementById('articleModalSummary');
+  const readmoreEl = document.getElementById('articleModalReadmore');
+
+  if (!overlay) return;
+
+  function openArticle(id){
+    const data = articles[id];
+    if (!data) return;
+
+    imgEl.src = data.img;
+    imgEl.alt = data.title;
+    badgeEl.textContent = data.badge;
+    dateEl.textContent = data.date;
+    titleEl.textContent = data.title;
+    summaryEl.textContent = data.summary;
+    readmoreEl.href = data.link;
+
+    overlay.classList.add('open');
+    document.body.classList.add('modal-open');
+    overlay.scrollTop = 0;
+  }
+
+  function closeArticle(){
+    overlay.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  }
+
+  document.querySelectorAll('.blog-card[data-article]').forEach(card => {
+    card.addEventListener('click', () => openArticle(card.dataset.article));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openArticle(card.dataset.article); }
+    });
+  });
+
+  closeBtn.addEventListener('click', closeArticle);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeArticle(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeArticle(); });
+})();
+
 </script>
 
 <!-- Carte interactive Leaflet — zone d'intervention -->
@@ -2152,7 +2703,7 @@ backToTop.addEventListener('click', (e) => {
           form.reset();
           setTimeout(function(){
             btn.disabled = false;
-            btn.textContent = "Envoyer le devis";
+            btn.textContent = "Envoyer";
             note.textContent = noteDefault;
             note.style.color = "";
           }, 5000);
@@ -2160,7 +2711,7 @@ backToTop.addEventListener('click', (e) => {
         .catch(function(err){
           console.error("EmailJS error:", err);
           btn.disabled = false;
-          btn.textContent = "Envoyer le devis";
+          btn.textContent = "Envoyer";
           note.textContent = "Une erreur est survenue, merci de réessayer ou de nous appeler directement.";
           note.style.color = "#DC2626";
         });
