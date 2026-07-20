@@ -56,6 +56,7 @@ body{font-family:'Inter',sans-serif;background:#fff;color:var(--dark);overflow-x
   opacity:0;
 }
 
+
 /* le trait lumineux qui passe — rayon de lumière sur la vitre */
 #wipe-beam{
   position:absolute;
@@ -508,24 +509,21 @@ body.modal-open{overflow:hidden}
   .article-related{padding:0.5rem 1.25rem 3.5rem}
 }
 
-/* PHOTO CAROUSEL — même look que les cartes "réalisations", défilement horizontal infini */
+/* PHOTO CAROUSEL — même look que les cartes "réalisations", défilement horizontal infini automatique */
 .solar-carousel{
   position:relative;
   margin-top:2.5rem;
-  padding:0 2.5rem;
 }
-.solar-carousel-window{
-  overflow-x:auto;
-  overflow-y:hidden;
-  scroll-behavior:auto;
-  -webkit-overflow-scrolling:touch;
-  width:100%;
-  scrollbar-width:none;
-  cursor:grab;
+.solar-carousel-viewport{overflow:hidden;width:100%}
+.solar-carousel-track{
+  display:flex;gap:20px;width:max-content;
+  animation:solarCarouselScroll 26s linear infinite;
 }
-.solar-carousel-window:active{cursor:grabbing}
-.solar-carousel-window::-webkit-scrollbar{display:none}
-.solar-carousel-track{display:flex;gap:20px;padding:4px 4px 8px}
+.solar-carousel:hover .solar-carousel-track{animation-play-state:paused}
+@keyframes solarCarouselScroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
 .solar-carousel-item{
   flex:0 0 320px;
   width:320px;
@@ -544,45 +542,23 @@ body.modal-open{overflow:hidden}
 .solar-carousel-body{padding:1.5rem}
 .solar-carousel-name{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
 .solar-carousel-desc{font-size:13px;color:var(--muted);line-height:1.65}
-.solar-carousel-btn{
-  position:absolute;
-  top:calc(50% - 10px);
-  transform:translateY(-50%);
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  border:0.5px solid #E5E7EB;
-  background:#fff;
-  box-shadow:0 8px 24px rgba(0,0,0,0.1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:transform 0.2s,box-shadow 0.2s;
-  z-index:2;
-}
-.solar-carousel-btn:hover{transform:translateY(-50%) scale(1.06);box-shadow:0 12px 30px rgba(0,0,0,0.16)}
-.solar-carousel-prev{left:2px}
-.solar-carousel-next{right:2px}
-.solar-carousel-btn svg{width:18px;height:18px;stroke:var(--dark);stroke-width:2.2}
-@media(max-width:900px){
-  .solar-carousel-btn{display:none}
-}
 @media(max-width:768px){
-  .solar-carousel{padding:0 1.25rem}
   .solar-carousel-item{flex-basis:260px;width:260px}
   .solar-carousel-item img{height:140px}
 }
 
 /* RÉALISATIONS CAROUSEL — même look que les anciennes cartes, défilement infini */
-.real-carousel{position:relative;margin-top:2rem;padding:0 2.5rem}
-.real-carousel-window{
-  overflow-x:auto;overflow-y:hidden;scroll-behavior:auto;
-  -webkit-overflow-scrolling:touch;width:100%;scrollbar-width:none;cursor:grab;
+.real-carousel{position:relative;margin-top:2rem}
+.real-carousel-viewport{overflow:hidden;width:100%}
+.real-carousel-track{
+  display:flex;gap:20px;width:max-content;
+  animation:realCarouselScroll 16s linear infinite;
 }
-.real-carousel-window:active{cursor:grabbing}
-.real-carousel-window::-webkit-scrollbar{display:none}
-.real-carousel-track{display:flex;gap:20px;padding:4px 4px 8px}
+.real-carousel:hover .real-carousel-track{animation-play-state:paused}
+@keyframes realCarouselScroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
 .real-carousel-card{
   flex:0 0 320px;width:320px;
   background:#fff;border:1px solid #E5E7EB;border-radius:var(--radius);
@@ -592,10 +568,7 @@ body.modal-open{overflow:hidden}
 .real-carousel-body{padding:1.5rem}
 .real-carousel-name{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
 .real-carousel-desc{font-size:13px;color:var(--muted);line-height:1.65}
-.real-carousel-prev{left:2px}
-.real-carousel-next{right:2px}
 @media(max-width:768px){
-  .real-carousel{padding:0 1.25rem}
   .real-carousel-card{flex-basis:260px;width:260px}
   .real-carousel-card img{height:140px}
 }
@@ -941,6 +914,23 @@ body.modal-open{overflow:hidden}
 .form-subtitle{font-size:13px;color:#94A3B8;margin-bottom:8px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .field{display:flex;flex-direction:column;gap:7px}
+.address-field{position:relative}
+.address-suggestions{
+  position:absolute;top:100%;left:0;right:0;
+  background:#fff;border:1px solid #E5E7EB;border-radius:10px;
+  margin-top:4px;box-shadow:0 12px 28px rgba(0,0,0,0.1);
+  max-height:230px;overflow-y:auto;
+  z-index:40;
+  display:none;
+}
+.address-suggestions.show{display:block}
+.address-suggestion{
+  padding:10px 14px;font-size:14px;color:var(--dark);
+  cursor:pointer;line-height:1.4;
+  border-bottom:1px solid #F1F5F9;
+}
+.address-suggestion:last-child{border-bottom:none}
+.address-suggestion:hover,.address-suggestion.active{background:var(--light)}
 .field label{font-size:13.5px;font-weight:500;color:var(--dark)}
 .field label .req{color:#9CA3AF;font-weight:400}
 .field input,.field textarea,.field select{
@@ -1508,10 +1498,7 @@ footer{
 </section>
 
 <div class="solar-carousel reveal" id="solarCarousel">
-  <button type="button" class="solar-carousel-btn solar-carousel-prev" aria-label="Photos précédentes">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-  </button>
-  <div class="solar-carousel-window" id="solarWindow">
+  <div class="solar-carousel-viewport">
     <div class="solar-carousel-track" id="solarTrack">
       <div class="solar-carousel-item">
         <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Panneaux solaires nettoyés" loading="lazy" decoding="async">
@@ -1555,11 +1542,50 @@ footer{
           <p class="solar-carousel-desc">[Contenu à confirmer]</p>
         </div>
       </div>
+      <div class="solar-carousel-item" aria-hidden="true">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Nettoyage en douceur</div>
+          <p class="solar-carousel-desc">Entretien photovoltaïque pro</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item" aria-hidden="true">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Rendement maximal</div>
+          <p class="solar-carousel-desc">Remise à neuf certifiée</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item" aria-hidden="true">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Interventions propres</div>
+          <p class="solar-carousel-desc">Service pro et sécurisé</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item" aria-hidden="true">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Vitres impeccables</div>
+          <p class="solar-carousel-desc">[Contenu à confirmer]</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item" aria-hidden="true">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Équipe qualifiée</div>
+          <p class="solar-carousel-desc">[Contenu à confirmer]</p>
+        </div>
+      </div>
+      <div class="solar-carousel-item" aria-hidden="true">
+        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <div class="solar-carousel-body">
+          <div class="solar-carousel-name">Résultat garanti</div>
+          <p class="solar-carousel-desc">[Contenu à confirmer]</p>
+        </div>
+      </div>
     </div>
   </div>
-  <button type="button" class="solar-carousel-btn solar-carousel-next" aria-label="Photos suivantes">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-  </button>
 </div>
 
 <!-- ABOUT -->
@@ -1606,10 +1632,7 @@ footer{
     <h2 class="section-title reveal">Nos réalisations</h2>
     <p class="section-sub reveal">Quelques exemples d'interventions récentes chez nos clients professionnels et particuliers. [Contenu à confirmer]</p>
     <div class="real-carousel reveal" id="realCarousel">
-      <button type="button" class="solar-carousel-btn real-carousel-prev" aria-label="Réalisations précédentes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <div class="real-carousel-window" id="realWindow">
+      <div class="real-carousel-viewport">
         <div class="real-carousel-track" id="realTrack">
           <div class="real-carousel-card">
             <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Façade de bâtiment nettoyée" loading="lazy" decoding="async">
@@ -1632,11 +1655,29 @@ footer{
               <p class="real-carousel-desc">Entretien d'une installation photovoltaïque pour restaurer son rendement optimal. [Contenu à confirmer]</p>
             </div>
           </div>
+          <div class="real-carousel-card" aria-hidden="true">
+            <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+            <div class="real-carousel-body">
+              <div class="real-carousel-name">Façade de bureaux [Contenu à confirmer]</div>
+              <p class="real-carousel-desc">Nettoyage complet des vitrages d'un immeuble de bureaux sur plusieurs niveaux. [Contenu à confirmer]</p>
+            </div>
+          </div>
+          <div class="real-carousel-card" aria-hidden="true">
+            <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+            <div class="real-carousel-body">
+              <div class="real-carousel-name">Vitrine de boutique [Contenu à confirmer]</div>
+              <p class="real-carousel-desc">Remise à neuf d'une devanture commerciale pour une ouverture impeccable. [Contenu à confirmer]</p>
+            </div>
+          </div>
+          <div class="real-carousel-card" aria-hidden="true">
+            <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+            <div class="real-carousel-body">
+              <div class="real-carousel-name">Installation solaire [Contenu à confirmer]</div>
+              <p class="real-carousel-desc">Entretien d'une installation photovoltaïque pour restaurer son rendement optimal. [Contenu à confirmer]</p>
+            </div>
+          </div>
         </div>
       </div>
-      <button type="button" class="solar-carousel-btn real-carousel-next" aria-label="Réalisations suivantes">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
     </div>
   </div>
 </section>
@@ -1933,7 +1974,11 @@ footer{
               <input type="text" name="telephone" inputmode="tel" autocomplete="tel" required>
             </div>
           </div>
-          <div class="field"><label>Adresse <span class="req">*</span></label><input type="text" name="adresse" autocomplete="street-address" required></div>
+          <div class="field address-field">
+            <label>Adresse <span class="req">*</span></label>
+            <input type="text" name="adresse" id="adresseInput" autocomplete="off" required>
+            <div class="address-suggestions" id="adresseSuggestions"></div>
+          </div>
           <div class="field">
             <label>Type de service <span class="req">*</span></label>
             <select name="service" required>
@@ -1959,6 +2004,7 @@ footer{
   <div id="wipe-beam"></div>
   <div id="wipe-beam2"></div>
 </div>
+
 
 <!-- BACK TO TOP -->
 <a href="#" class="back-to-top" id="backToTop" aria-label="Retour en haut">
@@ -2063,6 +2109,7 @@ footer{
   // Supprimer l'overlay complètement après
   setTimeout(() => overlay.remove(), 2000);
 })();
+
 
 // Cursor glow
 const glow = document.getElementById('glow');
@@ -2270,160 +2317,6 @@ sections.forEach(s => navSpyObserver.observe(s));
   });
 })();
 
-// Réalisations carousel — même logique de défilement infini
-(function(){
-  const track = document.getElementById('realTrack');
-  const scrollWindow = document.getElementById('realWindow');
-  const prevBtn = document.querySelector('.real-carousel-prev');
-  const nextBtn = document.querySelector('.real-carousel-next');
-  if (!track || !scrollWindow || !prevBtn || !nextBtn) return;
-
-  const originalItems = Array.from(track.children);
-  originalItems.forEach(item => track.appendChild(item.cloneNode(true)));
-
-  const getStep = () => {
-    const item = track.querySelector('.real-carousel-card');
-    if (!item) return 340;
-    const style = window.getComputedStyle(track);
-    const gap = parseFloat(style.columnGap || style.gap || '20');
-    return item.getBoundingClientRect().width + gap;
-  };
-
-  const SPEED = 0.5;
-  let autoScroll = true;
-  let resumeTimeout = null;
-
-  const normalizeScroll = () => {
-    const half = scrollWindow.scrollWidth / 2;
-    if (scrollWindow.scrollLeft >= half) scrollWindow.scrollLeft -= half;
-    else if (scrollWindow.scrollLeft < 0) scrollWindow.scrollLeft += half;
-  };
-
-  const pauseAuto = () => {
-    autoScroll = false;
-    if (resumeTimeout) clearTimeout(resumeTimeout);
-  };
-  const resumeAutoDelayed = (delay = 1600) => {
-    if (resumeTimeout) clearTimeout(resumeTimeout);
-    resumeTimeout = setTimeout(() => { autoScroll = true; }, delay);
-  };
-
-  const loop = () => {
-    if (autoScroll) scrollWindow.scrollLeft += SPEED;
-    normalizeScroll();
-    requestAnimationFrame(loop);
-  };
-  requestAnimationFrame(loop);
-
-  scrollWindow.addEventListener('mouseenter', pauseAuto);
-  scrollWindow.addEventListener('mouseleave', () => resumeAutoDelayed(400));
-  scrollWindow.addEventListener('touchstart', pauseAuto, { passive: true });
-  scrollWindow.addEventListener('touchend', () => resumeAutoDelayed(1800), { passive: true });
-
-  const goTo = (direction) => {
-    pauseAuto();
-    scrollWindow.scrollBy({ left: direction * getStep() * 1, behavior: 'smooth' });
-    resumeAutoDelayed(2200);
-  };
-  prevBtn.addEventListener('click', () => goTo(-1));
-  nextBtn.addEventListener('click', () => goTo(1));
-
-  let isDown = false, startX = 0, startScroll = 0;
-  scrollWindow.addEventListener('mousedown', (e) => {
-    isDown = true;
-    startX = e.pageX; startScroll = scrollWindow.scrollLeft;
-    pauseAuto();
-  });
-  window.addEventListener('mouseup', () => {
-    if (isDown) resumeAutoDelayed(1600);
-    isDown = false;
-  });
-  window.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    scrollWindow.scrollLeft = startScroll - (e.pageX - startX);
-  });
-})();
-
-// Solar carousel — défilement horizontal infini, comme les avis
-(function(){
-  const track = document.getElementById('solarTrack');
-  const scrollWindow = document.getElementById('solarWindow');
-  const prevBtn = document.querySelector('.solar-carousel-prev');
-  const nextBtn = document.querySelector('.solar-carousel-next');
-  if (!track || !scrollWindow || !prevBtn || !nextBtn) return;
-
-  // On duplique une fois toutes les photos pour créer une boucle sans coupure visible
-  const originalItems = Array.from(track.children);
-  originalItems.forEach(item => track.appendChild(item.cloneNode(true)));
-
-  const getStep = () => {
-    const item = track.querySelector('.solar-carousel-item');
-    if (!item) return 220;
-    const style = window.getComputedStyle(track);
-    const gap = parseFloat(style.columnGap || style.gap || '14');
-    return item.getBoundingClientRect().width + gap;
-  };
-
-  const SPEED = 0.5; // vitesse du défilement automatique, en px par frame
-  let autoScroll = true;
-  let resumeTimeout = null;
-
-  const normalizeScroll = () => {
-    const half = scrollWindow.scrollWidth / 2;
-    if (scrollWindow.scrollLeft >= half) scrollWindow.scrollLeft -= half;
-    else if (scrollWindow.scrollLeft < 0) scrollWindow.scrollLeft += half;
-  };
-
-  const pauseAuto = () => {
-    autoScroll = false;
-    if (resumeTimeout) clearTimeout(resumeTimeout);
-  };
-  const resumeAutoDelayed = (delay = 1600) => {
-    if (resumeTimeout) clearTimeout(resumeTimeout);
-    resumeTimeout = setTimeout(() => { autoScroll = true; }, delay);
-  };
-
-  const loop = () => {
-    if (autoScroll) scrollWindow.scrollLeft += SPEED;
-    normalizeScroll();
-    requestAnimationFrame(loop);
-  };
-  requestAnimationFrame(loop);
-
-  // Pause au survol / au toucher, reprise après un court délai
-  scrollWindow.addEventListener('mouseenter', pauseAuto);
-  scrollWindow.addEventListener('mouseleave', () => resumeAutoDelayed(400));
-  scrollWindow.addEventListener('touchstart', pauseAuto, { passive: true });
-  scrollWindow.addEventListener('touchend', () => resumeAutoDelayed(1800), { passive: true });
-
-  // Flèches : avancent/reculent d'environ 2 photos puis reprennent le défilement auto
-  const goTo = (direction) => {
-    pauseAuto();
-    scrollWindow.scrollBy({ left: direction * getStep() * 2, behavior: 'smooth' });
-    resumeAutoDelayed(2200);
-  };
-  prevBtn.addEventListener('click', () => goTo(-1));
-  nextBtn.addEventListener('click', () => goTo(1));
-
-  // Glisser à la souris (desktop)
-  let isDown = false, startX = 0, startScroll = 0;
-  scrollWindow.addEventListener('mousedown', (e) => {
-    isDown = true;
-    startX = e.pageX; startScroll = scrollWindow.scrollLeft;
-    pauseAuto();
-  });
-  window.addEventListener('mouseup', () => {
-    if (isDown) resumeAutoDelayed(1600);
-    isDown = false;
-  });
-  window.addEventListener('mouseleave', () => { isDown = false; });
-  scrollWindow.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    scrollWindow.scrollLeft = startScroll - (e.pageX - startX);
-  });
-})();
 
 // Back to top button
 const backToTop = document.getElementById('backToTop');
@@ -2667,6 +2560,91 @@ backToTop.addEventListener('click', (e) => {
       map.flyTo(valence, 10, { animate: true, duration: 1 });
     });
   }
+})();
+</script>
+
+<!-- Autocomplétion d'adresse — API Adresse (gouv.fr), gratuite et sans clé -->
+<script>
+(function(){
+  const input = document.getElementById('adresseInput');
+  const box = document.getElementById('adresseSuggestions');
+  if (!input || !box) return;
+
+  let debounceTimer = null;
+  let currentResults = [];
+  let activeIndex = -1;
+
+  function hideSuggestions(){
+    box.classList.remove('show');
+    box.innerHTML = '';
+    currentResults = [];
+    activeIndex = -1;
+  }
+
+  function renderSuggestions(results){
+    currentResults = results;
+    activeIndex = -1;
+    if (!results.length){ hideSuggestions(); return; }
+    box.innerHTML = results.map((r, i) =>
+      `<div class="address-suggestion" data-index="${i}">${r.properties.label}</div>`
+    ).join('');
+    box.classList.add('show');
+  }
+
+  function selectSuggestion(i){
+    const r = currentResults[i];
+    if (!r) return;
+    input.value = r.properties.label;
+    hideSuggestions();
+  }
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    clearTimeout(debounceTimer);
+    if (q.length < 3){ hideSuggestions(); return; }
+    debounceTimer = setTimeout(() => {
+      fetch('https://api-adresse.data.gouv.fr/search/?q=' + encodeURIComponent(q) + '&limit=5')
+        .then(res => res.json())
+        .then(data => renderSuggestions(data.features || []))
+        .catch(() => hideSuggestions());
+    }, 250);
+  });
+
+  box.addEventListener('click', (e) => {
+    const item = e.target.closest('.address-suggestion');
+    if (item) selectSuggestion(parseInt(item.dataset.index, 10));
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = box.querySelectorAll('.address-suggestion');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown'){
+      e.preventDefault();
+      activeIndex = Math.min(activeIndex + 1, items.length - 1);
+    } else if (e.key === 'ArrowUp'){
+      e.preventDefault();
+      activeIndex = Math.max(activeIndex - 1, 0);
+    } else if (e.key === 'Enter'){
+      if (activeIndex >= 0){
+        e.preventDefault();
+        selectSuggestion(activeIndex);
+        return;
+      }
+      hideSuggestions();
+      return;
+    } else if (e.key === 'Escape'){
+      hideSuggestions();
+      return;
+    } else {
+      return;
+    }
+    items.forEach((it, i) => it.classList.toggle('active', i === activeIndex));
+    items[activeIndex].scrollIntoView({ block: 'nearest' });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.target !== input && !box.contains(e.target)) hideSuggestions();
+  });
 })();
 </script>
 
