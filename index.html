@@ -605,6 +605,56 @@ body.modal-open{overflow:hidden}
   .real-carousel-card img{height:140px}
 }
 
+/* LIGHTBOX PHOTOS RÉALISATIONS */
+.real-carousel-card{cursor:zoom-in}
+.real-lightbox-hint{
+  display:flex;align-items:center;gap:8px;margin:1rem auto 0;
+  background:none;border:none;color:var(--muted);font-size:12px;font-family:'Inter',sans-serif;
+  cursor:default;
+}
+.real-lightbox-hint svg{stroke:var(--muted);flex-shrink:0}
+body.lightbox-open{overflow:hidden}
+.real-lightbox-overlay{
+  display:none;position:fixed;inset:0;z-index:10000;
+  background:rgba(13,13,15,0.94);
+  align-items:center;justify-content:center;
+  padding:24px;
+}
+.real-lightbox-overlay.open{display:flex}
+.real-lightbox-figure{
+  position:relative;max-width:min(1200px,92vw);max-height:88vh;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.real-lightbox-img-wrap{
+  max-width:100%;max-height:78vh;border-radius:10px;overflow:hidden;
+  background:#000;box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  display:flex;align-items:center;justify-content:center;
+}
+.real-lightbox-img-wrap img{max-width:100%;max-height:78vh;display:block;object-fit:contain}
+.real-lightbox-caption{color:#fff;font-size:14px;font-weight:600;text-align:center;letter-spacing:0.2px}
+.real-lightbox-close{
+  position:absolute;top:-18px;right:-18px;width:40px;height:40px;border-radius:50%;
+  background:#fff;border:none;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.3);color:var(--dark);
+}
+.real-lightbox-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.4}
+.real-lightbox-close:hover{background:var(--dark);color:#fff}
+.real-lightbox-nav{
+  position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;
+}
+.real-lightbox-nav:hover{background:rgba(255,255,255,0.25)}
+.real-lightbox-nav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4}
+.real-lightbox-prev{left:-56px}
+.real-lightbox-next{right:-56px}
+@media(max-width:900px){
+  .real-lightbox-prev{left:6px}
+  .real-lightbox-next{right:6px}
+  .real-lightbox-close{top:-46px;right:0}
+}
+
 /* PROCESS */
 .process-section{
   position:relative;overflow:hidden;
@@ -1561,84 +1611,84 @@ footer{
   <div class="solar-carousel-viewport">
     <div class="solar-carousel-track" id="solarTrack">
       <div class="solar-carousel-item">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Panneaux solaires nettoyés" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/11645003/pexels-photo-11645003.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Nettoyage professionnel de panneaux solaires" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Nettoyage en douceur</div>
           <p class="solar-carousel-desc">Entretien photovoltaïque pro</p>
         </div>
       </div>
       <div class="solar-carousel-item">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Performance optimale" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/35237907/pexels-photo-35237907.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Entretien de panneaux solaires en toiture" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Rendement maximal</div>
           <p class="solar-carousel-desc">Remise à neuf certifiée</p>
         </div>
       </div>
       <div class="solar-carousel-item">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Installation soignée" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/36511653/pexels-photo-36511653.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Techniciens nettoyant une façade vitrée en sécurité" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Interventions propres</div>
           <p class="solar-carousel-desc">Service pro et sécurisé</p>
         </div>
       </div>
       <div class="solar-carousel-item">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Nettoyage de vitres" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/164444/pexels-photo-164444.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Façade vitrée impeccable reflétant le ciel" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Vitres impeccables</div>
           <p class="solar-carousel-desc"></p>
         </div>
       </div>
       <div class="solar-carousel-item">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Intervention en hauteur" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/17041922/pexels-photo-17041922.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Intervention professionnelle en hauteur avec équipement de sécurité" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Équipe qualifiée</div>
           <p class="solar-carousel-desc"></p>
         </div>
       </div>
       <div class="solar-carousel-item">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Résultat final" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/356049/pexels-photo-356049.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Panneau solaire propre et performant" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Résultat garanti</div>
           <p class="solar-carousel-desc"></p>
         </div>
       </div>
       <div class="solar-carousel-item" aria-hidden="true">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/11645003/pexels-photo-11645003.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Nettoyage en douceur</div>
           <p class="solar-carousel-desc">Entretien photovoltaïque pro</p>
         </div>
       </div>
       <div class="solar-carousel-item" aria-hidden="true">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/35237907/pexels-photo-35237907.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Rendement maximal</div>
           <p class="solar-carousel-desc">Remise à neuf certifiée</p>
         </div>
       </div>
       <div class="solar-carousel-item" aria-hidden="true">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/36511653/pexels-photo-36511653.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Interventions propres</div>
           <p class="solar-carousel-desc">Service pro et sécurisé</p>
         </div>
       </div>
       <div class="solar-carousel-item" aria-hidden="true">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/164444/pexels-photo-164444.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Vitres impeccables</div>
           <p class="solar-carousel-desc"></p>
         </div>
       </div>
       <div class="solar-carousel-item" aria-hidden="true">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/17041922/pexels-photo-17041922.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Équipe qualifiée</div>
           <p class="solar-carousel-desc"></p>
         </div>
       </div>
       <div class="solar-carousel-item" aria-hidden="true">
-        <img src="https://placehold.co/600x400/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="" loading="lazy" decoding="async">
+        <img src="https://images.pexels.com/photos/356049/pexels-photo-356049.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" loading="lazy" decoding="async">
         <div class="solar-carousel-body">
           <div class="solar-carousel-name">Résultat garanti</div>
           <p class="solar-carousel-desc"></p>
@@ -1654,7 +1704,7 @@ footer{
     <div class="about-grid company-intro">
       <div class="about-photo-wrap reveal-left">
         <div class="about-photo">
-          <img src="https://placehold.co/700x800/E4E4E7/9CA3AF?text=Photo+%C3%A0+venir&font=montserrat" alt="Photo à venir" loading="lazy" decoding="async">
+          <img src="juup-schram-npCIKVoA1SY-unsplash.jpg" alt="Photo à venir" loading="lazy" decoding="async">
           <div class="about-photo-overlay"></div>
           <div class="about-photo-badge">
             <div class="about-photo-badge-icon">
@@ -1717,85 +1767,85 @@ footer{
     <div class="real-carousel reveal" id="realCarousel">
       <div class="real-carousel-viewport">
         <div class="real-carousel-track" id="realTrack">
-          <div class="real-carousel-card">
-            <img src="images/avant-apres-vitrine-cafe.jpg" alt="Vitrine de café avant/après nettoyage" loading="lazy" decoding="async">
+          <div class="real-carousel-card" data-lightbox-index="0">
+            <img src="images/avant-apres-vitrine-cafe.jpg" data-full="images/full/avant-apres-vitrine-cafe.jpg" alt="Vitrine de café avant/après nettoyage" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Vitrine de café — avant / après</div>
               <p class="real-carousel-desc">Résultat immédiat sur une devanture encrassée : transparence et éclat retrouvés.</p>
             </div>
           </div>
-          <div class="real-carousel-card">
-            <img src="images/nettoyage-vitrage-garage-ford.jpg" alt="Nettoyage vitrage d'une concession automobile" loading="lazy" decoding="async">
+          <div class="real-carousel-card" data-lightbox-index="1">
+            <img src="images/nettoyage-vitrage-garage-ford.jpg" data-full="images/full/nettoyage-vitrage-garage-ford.jpg" alt="Nettoyage vitrage d'une concession automobile" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Concession automobile</div>
               <p class="real-carousel-desc">Entretien régulier des grandes baies vitrées d'un garage pour une vitrine toujours impeccable.</p>
             </div>
           </div>
-          <div class="real-carousel-card">
-            <img src="images/devanture-salon-coiffure.jpg" alt="Devanture d'un salon de coiffure" loading="lazy" decoding="async">
+          <div class="real-carousel-card" data-lightbox-index="2">
+            <img src="images/devanture-salon-coiffure.jpg" data-full="images/full/devanture-salon-coiffure.jpg" alt="Devanture d'un salon de coiffure" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Salon de coiffure</div>
               <p class="real-carousel-desc">Nettoyage de vitrine en centre-ville pour une image de marque soignée.</p>
             </div>
           </div>
-          <div class="real-carousel-card">
-            <img src="images/veranda-facade-exterieur.jpg" alt="Véranda vitrée nettoyée" loading="lazy" decoding="async">
+          <div class="real-carousel-card" data-lightbox-index="3">
+            <img src="images/veranda-facade-exterieur.jpg" data-full="images/full/veranda-facade-exterieur.jpg" alt="Véranda vitrée nettoyée" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Véranda résidentielle</div>
               <p class="real-carousel-desc">Grandes baies coulissantes nettoyées intégralement, intérieur et extérieur.</p>
             </div>
           </div>
-          <div class="real-carousel-card">
-            <img src="images/escalier-baie-vitree-1.jpg" alt="Baie vitrée intérieure nettoyée" loading="lazy" decoding="async">
+          <div class="real-carousel-card" data-lightbox-index="4">
+            <img src="images/escalier-baie-vitree-1.jpg" data-full="images/full/escalier-baie-vitree-1.jpg" alt="Baie vitrée intérieure nettoyée" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Vitrages intérieurs de villa</div>
               <p class="real-carousel-desc">Grande verrière d'escalier nettoyée sans traces pour une luminosité maximale.</p>
             </div>
           </div>
-          <div class="real-carousel-card">
-            <img src="images/salle-reception-vitrages.jpg" alt="Salle de réception avec vitrages nettoyés" loading="lazy" decoding="async">
+          <div class="real-carousel-card" data-lightbox-index="5">
+            <img src="images/salle-reception-vitrages.jpg" data-full="images/full/salle-reception-vitrages.jpg" alt="Salle de réception avec vitrages nettoyés" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Salle de réception</div>
               <p class="real-carousel-desc">Entretien des baies vitrées d'une salle de réception ouverte sur le jardin.</p>
             </div>
           </div>
-          <div class="real-carousel-card" aria-hidden="true">
-            <img src="images/avant-apres-vitrine-cafe.jpg" alt="" loading="lazy" decoding="async">
+          <div class="real-carousel-card" aria-hidden="true" data-lightbox-index="0">
+            <img src="images/avant-apres-vitrine-cafe.jpg" data-full="images/full/avant-apres-vitrine-cafe.jpg" alt="" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Vitrine de café — avant / après</div>
               <p class="real-carousel-desc">Résultat immédiat sur une devanture encrassée : transparence et éclat retrouvés.</p>
             </div>
           </div>
-          <div class="real-carousel-card" aria-hidden="true">
-            <img src="images/nettoyage-vitrage-garage-ford.jpg" alt="" loading="lazy" decoding="async">
+          <div class="real-carousel-card" aria-hidden="true" data-lightbox-index="1">
+            <img src="images/nettoyage-vitrage-garage-ford.jpg" data-full="images/full/nettoyage-vitrage-garage-ford.jpg" alt="" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Concession automobile</div>
               <p class="real-carousel-desc">Entretien régulier des grandes baies vitrées d'un garage pour une vitrine toujours impeccable.</p>
             </div>
           </div>
-          <div class="real-carousel-card" aria-hidden="true">
-            <img src="images/devanture-salon-coiffure.jpg" alt="" loading="lazy" decoding="async">
+          <div class="real-carousel-card" aria-hidden="true" data-lightbox-index="2">
+            <img src="images/devanture-salon-coiffure.jpg" data-full="images/full/devanture-salon-coiffure.jpg" alt="" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Salon de coiffure</div>
               <p class="real-carousel-desc">Nettoyage de vitrine en centre-ville pour une image de marque soignée.</p>
             </div>
           </div>
-          <div class="real-carousel-card" aria-hidden="true">
-            <img src="images/veranda-facade-exterieur.jpg" alt="" loading="lazy" decoding="async">
+          <div class="real-carousel-card" aria-hidden="true" data-lightbox-index="3">
+            <img src="images/veranda-facade-exterieur.jpg" data-full="images/full/veranda-facade-exterieur.jpg" alt="" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Véranda résidentielle</div>
               <p class="real-carousel-desc">Grandes baies coulissantes nettoyées intégralement, intérieur et extérieur.</p>
             </div>
           </div>
-          <div class="real-carousel-card" aria-hidden="true">
-            <img src="images/escalier-baie-vitree-1.jpg" alt="" loading="lazy" decoding="async">
+          <div class="real-carousel-card" aria-hidden="true" data-lightbox-index="4">
+            <img src="images/escalier-baie-vitree-1.jpg" data-full="images/full/escalier-baie-vitree-1.jpg" alt="" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Vitrages intérieurs de villa</div>
               <p class="real-carousel-desc">Grande verrière d'escalier nettoyée sans traces pour une luminosité maximale.</p>
             </div>
           </div>
-          <div class="real-carousel-card" aria-hidden="true">
-            <img src="images/salle-reception-vitrages.jpg" alt="" loading="lazy" decoding="async">
+          <div class="real-carousel-card" aria-hidden="true" data-lightbox-index="5">
+            <img src="images/salle-reception-vitrages.jpg" data-full="images/full/salle-reception-vitrages.jpg" alt="" loading="lazy" decoding="async">
             <div class="real-carousel-body">
               <div class="real-carousel-name">Salle de réception</div>
               <p class="real-carousel-desc">Entretien des baies vitrées d'une salle de réception ouverte sur le jardin.</p>
@@ -1803,11 +1853,32 @@ footer{
           </div>
         </div>
       </div>
+      <button type="button" class="real-lightbox-hint" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Cliquez sur une photo pour l'agrandir
+      </button>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
+<!-- LIGHTBOX PHOTOS RÉALISATIONS -->
+<div class="real-lightbox-overlay" id="realLightboxOverlay">
+  <div class="real-lightbox-figure">
+    <button type="button" class="real-lightbox-close" id="realLightboxClose" aria-label="Fermer">
+      <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button type="button" class="real-lightbox-nav real-lightbox-prev" id="realLightboxPrev" aria-label="Photo précédente">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="real-lightbox-img-wrap">
+      <img id="realLightboxImg" src="" alt="">
+    </div>
+    <button type="button" class="real-lightbox-nav real-lightbox-next" id="realLightboxNext" aria-label="Photo suivante">
+      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="real-lightbox-caption" id="realLightboxCaption"></div>
+  </div>
+</div>
 <section class="section process-section">
   <div class="process-inner">
     <div class="eyebrow reveal">Comment ça marche</div>
@@ -2537,6 +2608,73 @@ backToTop.addEventListener('click', (e) => {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeArticle(); });
 })();
 
+</script>
+
+<!-- LIGHTBOX PHOTOS RÉALISATIONS -->
+<script>
+(function(){
+  const cards = Array.from(document.querySelectorAll('.real-carousel-card[data-lightbox-index]'));
+  // On ne garde qu'une entrée unique par index (les cartes dupliquées aria-hidden partagent le même index)
+  const items = [];
+  cards.forEach(card => {
+    const idx = parseInt(card.dataset.lightboxIndex, 10);
+    if (!items[idx]) {
+      const img = card.querySelector('img');
+      items[idx] = {
+        full: img.dataset.full || img.src,
+        caption: card.querySelector('.real-carousel-name')?.textContent || ''
+      };
+    }
+  });
+
+  const lbOverlay = document.getElementById('realLightboxOverlay');
+  const lbImg = document.getElementById('realLightboxImg');
+  const lbCaption = document.getElementById('realLightboxCaption');
+  const lbClose = document.getElementById('realLightboxClose');
+  const lbPrev = document.getElementById('realLightboxPrev');
+  const lbNext = document.getElementById('realLightboxNext');
+  let current = 0;
+
+  function show(idx){
+    current = (idx + items.length) % items.length;
+    const item = items[current];
+    lbImg.src = item.full;
+    lbImg.alt = item.caption;
+    lbCaption.textContent = item.caption;
+  }
+
+  function openLightbox(idx){
+    show(idx);
+    lbOverlay.classList.add('open');
+    document.body.classList.add('lightbox-open');
+  }
+
+  function closeLightbox(){
+    lbOverlay.classList.remove('open');
+    document.body.classList.remove('lightbox-open');
+    lbImg.src = '';
+  }
+
+  cards.forEach(card => {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.addEventListener('click', () => openLightbox(parseInt(card.dataset.lightboxIndex, 10)));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(parseInt(card.dataset.lightboxIndex, 10)); }
+    });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => show(current - 1));
+  lbNext.addEventListener('click', () => show(current + 1));
+  lbOverlay.addEventListener('click', (e) => { if (e.target === lbOverlay) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lbOverlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+})();
 </script>
 
 <!-- Carte interactive Leaflet — zone d'intervention -->
