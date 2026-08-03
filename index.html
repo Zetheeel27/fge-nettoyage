@@ -318,6 +318,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .company-intro .about-text{margin-bottom:1rem}
 .company-intro .about-text:last-child{margin-bottom:0}
 .about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:center}
+.about-grid-reverse{grid-template-columns:1.3fr 1fr}
 .about-photo-wrap{position:relative}
 .about-photo{
   width:100%;aspect-ratio:3/4;max-height:520px;
@@ -361,35 +362,26 @@ html,body{max-width:100%;overflow-x:hidden}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .service-card{
   background:#fff;border:0.5px solid #E5E7EB;
-  border-radius:16px;padding:2rem;
+  border-radius:16px;padding:0;
   position:relative;overflow:hidden;cursor:pointer;
   transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
 }
 .service-card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
   background:var(--blue);transform:scaleX(0);transform-origin:left;
-  transition:transform 0.3s ease;
-}
-.service-card::after{
-  content:'';position:absolute;
-  width:120px;height:120px;
-  background:var(--blue-pale);border-radius:50%;
-  right:-30px;top:-30px;opacity:0;
-  transition:opacity 0.3s,transform 0.3s;
-  transform:scale(0.5);
+  transition:transform 0.3s ease;z-index:2;
 }
 .service-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.12)}
 .service-card:hover::before{transform:scaleX(1)}
-.service-card:hover::after{opacity:1;transform:scale(1)}
-.service-icon{
-  width:48px;height:48px;background:var(--blue-pale);
-  border-radius:12px;display:flex;align-items:center;justify-content:center;
-  margin-bottom:1.25rem;position:relative;z-index:1;
-  transition:background 0.3s;
+.service-photo{
+  width:100%;height:168px;overflow:hidden;position:relative;background:var(--blue-pale);
 }
-.service-card:hover .service-icon{background:var(--blue)}
-.service-icon svg{width:22px;height:22px;stroke:var(--blue);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.3s}
-.service-card:hover .service-icon svg{stroke:#fff}
+.service-photo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 0.5s ease;
+}
+.service-card:hover .service-photo img{transform:scale(1.06)}
+.service-body{padding:1.5rem 2rem 2rem}
 .service-name{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px;position:relative;z-index:1}
 .service-desc{font-size:13px;color:var(--muted);line-height:1.65;position:relative;z-index:1}
 .service-tag{
@@ -1439,7 +1431,8 @@ footer{
   }
 
   /* About photo — subtle zoom on reveal */
-  .about-photo-wrap.reveal-left.visible .about-photo img{
+  .about-photo-wrap.reveal-left.visible .about-photo img,
+  .about-photo-wrap.reveal-right.visible .about-photo img{
     animation:photoReveal 0.8s ease both;
   }
   @keyframes photoReveal{from{transform:scale(1.06)}to{transform:scale(1)}}
@@ -1539,40 +1532,52 @@ footer{
     <p class="section-sub reveal">Des interventions sur mesure pour les professionnels et les résidences privées, garantissant une clarté et un entretien irréprochable.</p>
     <div class="services-grid">
       <div class="service-card reveal delay-1">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M12 2v20M2 12h20"/></svg></div>
-        <div class="service-name">Vitrine extérieur de bâtiment</div>
-        <p class="service-desc">Entretien des vitrages, même pour une fenêtre difficile d’accès, pour une visibilité parfaite.</p>
-        <div class="service-tag">Vitrines</div>
+        <div class="service-photo"><img src="https://images.unsplash.com/photo-1775809675685-6b8e9cfc9c96?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Nettoyage de vitrine extérieure de bâtiment" loading="lazy" decoding="async"></div>
+        <div class="service-body">
+          <div class="service-name">Vitrine extérieur de bâtiment</div>
+          <p class="service-desc">Entretien des vitrages, même pour une fenêtre difficile d’accès, pour une visibilité parfaite.</p>
+          <div class="service-tag">Vitrines</div>
+        </div>
       </div>
       <div class="service-card reveal delay-2">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><rect x="9" y="12" width="6" height="10"/></svg></div>
-        <div class="service-name">Façades de commerces</div>
-        <p class="service-desc">Attirez vos clients avec des devantures d'une propreté éclatante.</p>
-        <div class="service-tag">Commerces</div>
+        <div class="service-photo"><img src="https://images.unsplash.com/photo-1758448500766-fdbb9f0925bc?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Façade de commerce avec vitrines éclatantes" loading="lazy" decoding="async"></div>
+        <div class="service-body">
+          <div class="service-name">Façades de commerces</div>
+          <p class="service-desc">Attirez vos clients avec des devantures d'une propreté éclatante.</p>
+          <div class="service-tag">Commerces</div>
+        </div>
       </div>
       <div class="service-card reveal delay-3">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-        <div class="service-name">Vitres résidentiel</div>
-        <p class="service-desc">Soin méticuleux de vos baies et fenêtres pour maximiser la clarté.</p>
-        <div class="service-tag">Particuliers</div>
+        <div class="service-photo"><img src="https://images.unsplash.com/photo-1512479373983-bd28a541041b?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Nettoyage de vitres résidentielles" loading="lazy" decoding="async"></div>
+        <div class="service-body">
+          <div class="service-name">Vitres résidentiel</div>
+          <p class="service-desc">Soin méticuleux de vos baies et fenêtres pour maximiser la clarté.</p>
+          <div class="service-tag">Particuliers</div>
+        </div>
       </div>
       <div class="service-card reveal delay-1">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
-        <div class="service-name">Véranda</div>
-        <p class="service-desc">Lavage intégral des parois de votre jardin d'hiver.</p>
-        <div class="service-tag">Vérandas</div>
+        <div class="service-photo"><img src="https://images.unsplash.com/photo-1585261817820-6cb1727d2619?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Véranda vitrée lumineuse" loading="lazy" decoding="async"></div>
+        <div class="service-body">
+          <div class="service-name">Véranda</div>
+          <p class="service-desc">Lavage intégral des parois de votre jardin d'hiver.</p>
+          <div class="service-tag">Vérandas</div>
+        </div>
       </div>
       <div class="service-card reveal delay-2">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
-        <div class="service-name">Velux</div>
-        <p class="service-desc">Nettoyage soigné de vos fenêtres de toit Velux pour laisser entrer la lumière sans traces.</p>
-        <div class="service-tag">Velux</div>
+        <div class="service-photo"><img src="https://images.unsplash.com/photo-1580642866497-dde93c97492b?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Fenêtre de toit Velux sur toiture" loading="lazy" decoding="async"></div>
+        <div class="service-body">
+          <div class="service-name">Velux</div>
+          <p class="service-desc">Nettoyage soigné de vos fenêtres de toit Velux pour laisser entrer la lumière sans traces.</p>
+          <div class="service-tag">Velux</div>
+        </div>
       </div>
       <div class="service-card reveal delay-3">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v18M16 3v18"/></svg></div>
-        <div class="service-name">Garde corps en verre</div>
-        <p class="service-desc">Entretien spécialisé pour vos structures vitrées de protection.</p>
-        <div class="service-tag">Sur mesure</div>
+        <div class="service-photo"><img src="https://images.unsplash.com/photo-1766156181041-0dc63ec093ff?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="Garde-corps en verre moderne" loading="lazy" decoding="async"></div>
+        <div class="service-body">
+          <div class="service-name">Garde corps en verre</div>
+          <p class="service-desc">Entretien spécialisé pour vos structures vitrées de protection.</p>
+          <div class="service-tag">Sur mesure</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1725,8 +1730,21 @@ footer{
         <p class="about-text reveal">Entreprise en développement, nous avançons avec une volonté claire : construire une relation de confiance durable avec nos clients grâce à un travail propre et régulier.</p>
       </div>
     </div>
-    <div class="about-grid">
-      <div class="about-photo-wrap reveal-left">
+    <div class="about-grid about-grid-reverse">
+      <div class="reveal-left">
+        <div class="eyebrow">Le fondateur</div>
+        <div class="about-name">Antoine FOUGAIROLLE</div>
+        <div class="about-role">FGE Nettoyage</div>
+        <p class="about-text">Je m'appelle Antoine Fougairolle, j'ai 22 ans et je suis le fondateur de FGE Nettoyage. Je me suis lancé dans le nettoyage de vitres il y a maintenant 2 ans, en apprenant directement le métier sur le terrain au contact de mes clients.</p>
+        <p class="about-text">J'ai créé cette entreprise avec une idée simple : proposer un service sérieux, propre et efficace, basé sur la qualité du travail et la satisfaction totale de mes clients. Aujourd'hui, j'interviens avec ponctualité et soin pour construire une relation de confiance durable avec vous.</p>
+        <div class="about-values">
+          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Ponctualité garantie</div>
+          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Résultat impeccable</div>
+          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Respect des lieux</div>
+          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+        </div>
+      </div>
+      <div class="about-photo-wrap reveal-right">
         <div class="about-photo">
           <img src="antoine-fougairolle.jpg" alt="Fondateur" loading="lazy" decoding="async">
           <div class="about-photo-overlay"></div>
@@ -1739,19 +1757,6 @@ footer{
               <div class="about-photo-badge-sub">Depuis 2024</div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="reveal-right">
-        <div class="eyebrow">Le fondateur</div>
-        <div class="about-name">Antoine FOUGAIROLLE</div>
-        <div class="about-role">FGE Nettoyage</div>
-        <p class="about-text">Je m'appelle Antoine Fougairolle, j'ai 22 ans et je suis le fondateur de FGE Nettoyage. Je me suis lancé dans le nettoyage de vitres il y a maintenant 2 ans, en apprenant directement le métier sur le terrain au contact de mes clients.</p>
-        <p class="about-text">J'ai créé cette entreprise avec une idée simple : proposer un service sérieux, propre et efficace, basé sur la qualité du travail et la satisfaction totale de mes clients. Aujourd'hui, j'interviens avec ponctualité et soin pour construire une relation de confiance durable avec vous.</p>
-        <div class="about-values">
-          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Ponctualité garantie</div>
-          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Résultat impeccable</div>
-          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Respect des lieux</div>
-          <div class="about-val"><div class="about-val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>
         </div>
       </div>
     </div>
@@ -2049,7 +2054,7 @@ footer{
     <div class="blog-grid reveal">
       <div class="blog-card" data-article="1" role="button" tabindex="0">
         <div class="blog-card-img-wrap">
-          <img src="https://placehold.co/600x400/1C1C1E/ffffff?text=FGE+Nettoyage&font=montserrat" alt="Nettoyage de panneaux solaires" loading="lazy" decoding="async">
+          <img src="https://images.pexels.com/photos/11645003/pexels-photo-11645003.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200" alt="Nettoyage de panneaux solaires" loading="lazy" decoding="async">
           <div class="blog-card-badge">Actualités</div>
           <div class="blog-card-active"><span class="active-glow-dot"></span>Actif</div>
         </div>
@@ -2063,7 +2068,7 @@ footer{
       </div>
       <div class="blog-card" data-article="2" role="button" tabindex="0">
         <div class="blog-card-img-wrap">
-          <img src="https://placehold.co/600x400/374151/ffffff?text=FGE+Nettoyage&font=montserrat" alt="Fréquence de nettoyage des vitres" loading="lazy" decoding="async">
+          <img src="https://images.pexels.com/photos/18885426/pexels-photo-18885426.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200" alt="Fréquence de nettoyage des vitres" loading="lazy" decoding="async">
           <div class="blog-card-badge">Conseil</div>
           <div class="blog-card-active"><span class="active-glow-dot"></span>Actif</div>
         </div>
@@ -2077,7 +2082,7 @@ footer{
       </div>
       <div class="blog-card" data-article="3" role="button" tabindex="0">
         <div class="blog-card-img-wrap">
-          <img src="https://placehold.co/600x400/14bbe2/ffffff?text=FGE+Nettoyage&font=montserrat" alt="Crédit d'impôt services à la personne" loading="lazy" decoding="async">
+          <img src="https://images.pexels.com/photos/6927334/pexels-photo-6927334.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200" alt="Crédit d'impôt services à la personne" loading="lazy" decoding="async">
           <div class="blog-card-badge">Conseil</div>
           <div class="blog-card-active"><span class="active-glow-dot"></span>Actif</div>
         </div>
@@ -2543,7 +2548,7 @@ backToTop.addEventListener('click', (e) => {
       badge: 'Actualités',
       date: '2 janvier 2024',
       title: "Pourquoi le nettoyage de vitres et panneaux solaires devient incontournable",
-      img: 'https://placehold.co/700x400/1C1C1E/ffffff?text=FGE+Nettoyage&font=montserrat',
+      img: 'https://images.pexels.com/photos/11645003/pexels-photo-11645003.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200',
       summary: "Entre les poussières, le pollen, les traces de pluie, les dépôts liés à la pollution et les salissures présentes dans l'environnement, les vitres et les panneaux photovoltaïques sont régulièrement exposés à des éléments qui réduisent leur propreté et leur efficacité.",
       link: 'article-1.html'
     },
@@ -2551,7 +2556,7 @@ backToTop.addEventListener('click', (e) => {
       badge: 'Conseil',
       date: '2 janvier 2024',
       title: "À quelle fréquence faut-il nettoyer ses vitres et ses panneaux solaires ?",
-      img: 'https://placehold.co/700x400/374151/ffffff?text=FGE+Nettoyage&font=montserrat',
+      img: 'https://images.pexels.com/photos/18885426/pexels-photo-18885426.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200',
       summary: "Garder ses vitres et ses panneaux solaires propres permet de conserver une maison lumineuse, des locaux accueillants et une installation solaire dans de bonnes conditions. La réponse dépend de votre situation, de votre environnement et du niveau de salissure.",
       link: 'article-2.html'
     },
@@ -2559,7 +2564,7 @@ backToTop.addEventListener('click', (e) => {
       badge: 'Conseil',
       date: '2 janvier 2024',
       title: "Nos factures sont-elles déductibles des impôts ?",
-      img: 'https://placehold.co/700x400/14bbe2/ffffff?text=FGE+Nettoyage&font=montserrat',
+      img: 'https://images.pexels.com/photos/6927334/pexels-photo-6927334.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200',
       summary: "Vous faites appel à un professionnel pour le nettoyage de vos vitres, baies vitrées ou vérandas et vous vous demandez si vous pouvez bénéficier d'un avantage fiscal ?",
       link: 'article-3.html'
     }
